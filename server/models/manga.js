@@ -3,38 +3,50 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Quote extends Model {
+  class Manga extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Manga.hasMany(models.FavManga, { foreignKey: 'manga_id' })
     }
   };
-  Quote.init({
-    quote: {
+  Manga.init({
+    image: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
     },
-    character: {
+    title: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
     },
-    anime: {
+    rating: {
+      type: DataTypes.FLOAT,
+      validate: {
+        notEmpty: true
+      }
+    },
+    status: {
       type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    volume: {
+      type: DataTypes.INTEGER,
       validate: {
         notEmpty: true
       }
     }
   }, {
     sequelize,
-    modelName: 'Quote',
+    modelName: 'Manga',
   });
-  return Quote;
+  return Manga;
 };

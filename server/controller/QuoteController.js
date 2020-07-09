@@ -1,18 +1,14 @@
-const { Sequelize } = require('sequelize')
-const { Quote } = require('../models')
+const axios = require('axios')
 
 class QuoteController {
-  static async readOne(req, res, next) {
-    try {
-      const data = await Quote.findOne({
-        order: [
-          Sequelize.fn('RANDOM')
-        ]
-      })
-      res.status(200).json({ data })
-    } catch (err) {
-      next(err)
-    }
+  static readOne(req, res, next) {
+    axios({
+      method: 'GET',
+      url: `https://anime-chan.herokuapp.com/api/quotes/random`,
+
+    }).then(obj => {
+      res.status(200).json(obj.data[0])
+    }).catch(err => next(err))
   }
 }
 
