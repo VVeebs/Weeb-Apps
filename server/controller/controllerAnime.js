@@ -93,10 +93,10 @@ class ControllerAnime {
             })
     }
 
-    static showAll(req, res, next) {
-
+    static findAnime(req, res, next) {
+        let { title } = req.params
         axios({
-            url: `https://kitsu.io/api/edge/anime`,
+            url: `https://api.jikan.moe/v3/search/anime?q=${title}`,
             methode: 'GET',
 
         })

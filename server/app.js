@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const router = require('./animeRouter') 
+const router = require('./routers/animeRouter') 
 
 
 app.use(express.json())
