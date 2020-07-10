@@ -294,3 +294,92 @@
 
   - **Code:** 500 <br />
     **Content:** `{ error : "Internal server error" }`
+
+* **URL**
+
+  http://localhost:3000/amie/:title
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  Find anime by name
+
+  - **Code:** 200 <br />
+    
+* **Error Response:**
+
+  - **Code:** 500 <br />
+    **Content:** `{ error : "Internal server error" }`
+
+* **URL**
+
+  http://localhost:3000/anime/top
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  Find top anime
+
+  - **Code:** 200 <br />
+    
+* **Error Response:**
+
+  - **Code:** 500 <br />
+    **Content:** `{ error : "Internal server error" }`
+
+* **URL**
+
+  http://localhost:3000/anime/genre/:genre
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+  **Required:**
+
+  `genre=[string]`
+
+* **Success Response:**
+
+  Find anime by genre
+
+  - **Code:** 200 <br />
+    
+* **Error Response:**
+
+  - **Code:** 500 <br />
+    **Content:** `{ error : "Internal server error" }`
+
+* **URL**
+
+  http://localhost:3000/anime/:year/:season
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+  **Required:**
+
+  `year=[integer]`
+  `season=[string]`
+
+* **Success Response:**
+
+  Find anime by year and season
+
+  - **Code:** 200 <br />
+    
+* **Error Response:**
+
+  - **Code:** 500 <br />
+    **Content:** `{ error : "Internal server error" }`
