@@ -7,7 +7,12 @@ class UserController {
   static async read(req, res, next) {
     try {
       const data = await User.findAll();
-      res.status(200).json({ data });
+      let data2 = {
+        id: data.id,
+        name: data.name
+
+      }
+      res.status(200).json({ data2 });
     } catch (err) {
       next(err)
     }
@@ -89,7 +94,7 @@ class UserController {
           user_id: id
         }
       })
-      if (!data) throw ({ status: 401, msg: "User has not favorites any manga" })
+      if (!data) throw ({ status: 401, msg: "User had not favorited any manga" })
       else {
         const data2 = await Manga.findAll({
           include: {
@@ -113,30 +118,33 @@ class UserController {
       url: `https://kitsu.io/api/edge/manga?filter[text]=${title}`,
 
     }).then(obj => {
-      let arr = obj.data.data
-      let newArr = []
-      for (let i = 0; i < arr.length; i++) {
-        newArr[i] = {}
-        newArr[i].image = arr[i].attributes.posterImage.medium
-        newArr[i].title = arr[i].attributes.titles.en_jp
-        newArr[i].rating = +arr[i].attributes.averageRating
-        newArr[i].status = arr[i].attributes.status
-        newArr[i].volume = arr[i].attributes.volumeCount
+      if (obj) {
 
-        if (newArr[i].rating === null) {
-          newArr[i].rating = "not rated"
-        }
+        let arr = obj.data.data
+        let newArr = []
+        for (let i = 0; i < arr.length; i++) {
+          newArr[i] = {}
+          newArr[i].image = arr[i].attributes.posterImage.medium
+          newArr[i].title = arr[i].attributes.titles.en_jp
+          newArr[i].rating = +arr[i].attributes.averageRating
+          newArr[i].status = arr[i].attributes.status
+          newArr[i].volume = arr[i].attributes.volumeCount
 
-        if (newArr[i].status === 'current') {
-          newArr[i].status = "ongoing"
-        }
+          if (newArr[i].rating === null) {
+            newArr[i].rating = "not rated"
+          }
 
-        if (newArr[i].volume === null) {
-          newArr[i].volume = "tbd"
+          if (newArr[i].status === 'current') {
+            newArr[i].status = "ongoing"
+          }
+
+          if (newArr[i].volume === null) {
+            newArr[i].volume = "tbd"
+          }
         }
-      }
-      req.session.data = newArr[0]
-      res.status(200).json(newArr[0])
+        req.session.data = newArr[0]
+        res.status(200).json(newArr[0])
+      } else throw ({ status: 400, msg: "Manga not found" })
     }).catch(err => next(err))
   }
 
@@ -149,7 +157,7 @@ class UserController {
           title
         }
       })
-      if (data) throw ({ status: 400, msg: "You already favorited this manga" })
+      if (data) throw ({ status: 400, msg: "You've already favorited this manga" })
       else {
         const data2 = await Manga.create({
           image,
@@ -163,7 +171,7 @@ class UserController {
           user_id: id,
           manga_id: data2.id
         })
-        res.status(200).json({ msg: "Manga added successfully" })
+        res.status(201).json({ msg: "Manga added successfully" })
       }
     } catch (err) {
       next(err)
