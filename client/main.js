@@ -43,9 +43,15 @@ function resultTitle(result){
     return template
 }
 
+function hideAll(){
+    $('#search-anime').hide()
+    $('#search-genre').hide()
+    $('#search-season').hide()
 
+}
 $( document ).ready(function() {
     console.log( "ready!" );
+    hideAll()
 });
 
 ////======================to Genre====
