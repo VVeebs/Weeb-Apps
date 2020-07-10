@@ -32,7 +32,7 @@ class UserController {
             id: data.id,
             email: data.email
           })
-          res.status(200).json({ msg: `${data.name} logged in successfully`, token })
+          res.status(200).json({ msg: `${data.name} logged in successfully`, token ,id:data.id})
         } else throw ({ status: 400, msg: "Wrong email/password" })
       } else throw ({ status: 404, msg: "User not found" })
     } catch (err) {
