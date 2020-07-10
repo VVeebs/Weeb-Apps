@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "theosakram",
+    "password": "pgpw",
+    "database": "Weeb-Shits",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

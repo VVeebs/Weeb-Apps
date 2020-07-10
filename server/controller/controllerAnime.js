@@ -10,12 +10,11 @@ class ControllerAnime {
         })
             .then(response => {
                 let { data } = response
-
                 res.status(200).json({ data })
             })
             .catch(err => {
                 
-                next()
+                next(err)
             })
     }
 
@@ -74,7 +73,7 @@ class ControllerAnime {
         }
 
         if (genre_id == 100){
-            res.status(404).json({msg: 'not found'})
+            throw ({ status: 404, msg: "genre not found" })
         }
         
         axios({
@@ -84,12 +83,10 @@ class ControllerAnime {
         })
             .then(response => {
                 let { data } = response
-
                 res.status(200).json({ data })
             })
             .catch(err => {
                 next(err)
-
             })
     }
 
@@ -102,11 +99,10 @@ class ControllerAnime {
         })
             .then(response => {
                 let { data } = response
-
                 res.status(200).json({ data })
             })
             .catch(err => {
-                console.log(err)
+                next(err)
             })
     }
 
@@ -126,8 +122,7 @@ class ControllerAnime {
                 res.status(200).json({ data })
             })
             .catch(err => {
-                console.log(err)
-                next()
+                next(err)
             })
     }
 

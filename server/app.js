@@ -1,12 +1,14 @@
+require('dotenv').config()
 const express = require('express')
+const route = require('./router/index')
 const app = express()
 const port = 3000
-var cors = require('cors')
-const router = require('./animeRouter') 
+const cors = require('cors')
 
 app.use(cors())
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
-app.use(router)
+app.use(express.urlencoded({ extended: false }))
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.use(route)
+
+app.listen(port, () => console.log(`Listening on port ${port}`))
