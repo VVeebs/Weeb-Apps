@@ -12,4 +12,7 @@ route.get('/:id/favManga', author, UserController.favmanga) // nampilin list man
 route.post('/:id/favManga/', author, UserController.addManga) // nambahin manga ke list favorite
 route.delete('/:id/favManga/:manga_id', author, UserController.deleteManga) // hapus manga dari list favorite
 
+route.post('/googlelogin', UserController.googleLogin)
+
+
 module.exports = route

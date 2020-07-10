@@ -1,7 +1,9 @@
+const {OAuth2Client} = require('google-auth-library');
 const { FavManga, Manga, User } = require('../models')
 const { compare } = require('bcrypt')
 const { createToken } = require("../helper/jwt");
-const axios = require('axios')
+const axios = require('axios');
+const jwt = require('../helper/jwt');
 
 class UserController {
   static async read(req, res, next) {
@@ -197,6 +199,51 @@ class UserController {
     } catch (err) {
       next(err)
     }
+  }
+
+  static googleLogin(req, res, next){
+
+    const { id_token } = req.body;
+
+        const CLIENT_ID = process.env.GOOGLE_CLIENT_ID 
+        const client = new OAuth2Client(CLIENT_ID);
+
+        let nameUser = null
+        let emailUser = null
+        client.verifyIdToken({
+            idToken: id_token,
+            audience: CLIENT_ID
+        })
+            .then(ticket =>{
+                console.log( {ticket: ticket.getPayload()} )
+                let { name, email } = ticket.getPayload()
+                nameUser = name
+                emailUser = email
+                return User.findOne({where: {email}})
+            })
+            .then(foundUser =>{
+              if (foundUser){
+                return foundUser
+              }else{
+                let password = Math.round(Math.random()*1000) + 'akuanimemanga';
+                let name = nameUser
+                let email = emailUser
+                return User.create({name, email, password})
+              }
+            })
+            .then(user =>{
+              let token = createToken({
+                id: user.id,
+                email: user.email
+              })
+
+              console.log('berhasil login di server')
+              res.status(201).json({ msg: `${user.name} logged in successfully`, token })
+            })
+            .catch(error=>{
+                next(error)
+            })
+
   }
 }
 
