@@ -135,14 +135,14 @@ class UserController {
           newArr[i].volume = "tbd"
         }
       }
-      req.app.locals.data = newArr[0]
+      req.session.data = newArr[0]
       res.status(200).json(newArr[0])
     }).catch(err => next(err))
   }
 
   static async addManga(req, res, next) {
     let { id } = req.params
-    let { image, title, rating, status, volume } = req.app.locals.data
+    let { image, title, rating, status, volume } = req.session.data
     try {
       const data = await Manga.findOne({
         where: {
