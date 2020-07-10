@@ -1,11 +1,9 @@
-const router = require('express').Router()
+const route = require('express').Router()
 const ControllerAnime = require('../controller/controllerAnime')
 
-router.get('/', (req, res) => res.send('Hello World!'))
+route.get('/:title', ControllerAnime.findAnime)
+route.get('/top', ControllerAnime.top) ///ganti si by rating
+route.get('/genre/:genre', ControllerAnime.genre)
+route.get('/:year/:season', ControllerAnime.byYear)
 
-router.get('/:title', ControllerAnime.findAnime)
-router.get('/top', ControllerAnime.top) ///ganti si by rating
-router.get('/genre/:genre', ControllerAnime.genre)
-router.get('/:year/:season', ControllerAnime.byYear)
-
-module.exports = router
+module.exports = route

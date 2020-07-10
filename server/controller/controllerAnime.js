@@ -13,7 +13,7 @@ class ControllerAnime {
                 res.status(200).json({ data })
             })
             .catch(err => {
-                
+
                 next(err)
             })
     }
@@ -68,14 +68,14 @@ class ControllerAnime {
                 break;
             default:
                 genre_id = 100;
-                
+
 
         }
 
-        if (genre_id == 100){
+        if (genre_id == 100) {
             throw ({ status: 404, msg: "genre not found" })
         }
-        
+
         axios({
             url: `https://api.jikan.moe/v3/genre/anime/${genre_id}`,
             methode: 'GET',
