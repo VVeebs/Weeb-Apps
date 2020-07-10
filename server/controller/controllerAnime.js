@@ -113,10 +113,10 @@ class ControllerAnime {
     static byYear(req, res, next) {
 
         let year = req.params.year
-        let seasion = req.params.seasion
+        let season = req.params.season
 
         axios({
-            url: `https://api.jikan.moe/v3/season/${year}/${seasion}`,
+            url: `https://api.jikan.moe/v3/season/${year}/${season}`,
             methode: 'GET',
 
         })
